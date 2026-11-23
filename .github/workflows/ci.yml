@@ -17,10 +17,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Docker Build
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devboard:latest
+      - name: Docker Build & Push 
+        env:
+          DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker compose --env-file .env.example build backend frontend
+          docker compose --env-file .env.example push backend frontend
         
