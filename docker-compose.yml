@@ -23,7 +23,7 @@ services:
       context: ./backend
       args:
         GO_IMAGE: ${GO_IMAGE:-dhi.io/golang:1-alpine}
-    image: ${DOCKERHUB_USERNAME}/devboard-backend:${IMAGE_TAG:-latest}
+    image: ${DOCKERHUB_NAMESPACE}/devboard-backend:${IMAGE_TAG:-latest}
     environment:
       PORT: "${BACKEND_PORT}"
       OTEL_SDK_DISABLED: "true"   # no collector locally
@@ -40,7 +40,7 @@ services:
       args:
         NODE_BUILD_IMAGE: ${NODE_BUILD_IMAGE:-dhi.io/node:26-dev}
         NODE_RUNTIME_IMAGE: ${NODE_RUNTIME_IMAGE:-dhi.io/node:26}
-    image: ${DOCKERHUB_USERNAME}/devboard-frontend:${IMAGE_TAG:-latest}
+    image: ${DOCKERHUB_NAMESPACE}/devboard-frontend:${IMAGE_TAG:-latest}
     depends_on:
       - backend
 
