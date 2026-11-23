@@ -19,7 +19,6 @@ jobs:
 
       - name: Docker Build & Push 
         env:
-          DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker compose --env-file .env.example build backend frontend
