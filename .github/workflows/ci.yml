@@ -56,6 +56,7 @@ jobs:
               working-directory: backend
             
     build-and-push:
+        needs: [frontend,backend]
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -78,6 +79,6 @@ jobs:
                 tags: ${{ secrets.DOCKERHUB_USERNAME }}/devboard-${{ matrix.folder }}:latest
 
     deploy:
-        needs: [frontend,backend]
+        needs: [frontend,backend,build-and-push]
         uses: ./.github/workflows/cd.yml
         secrets: inherit        
